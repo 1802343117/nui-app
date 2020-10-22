@@ -17,9 +17,9 @@
 			</template>
 			
 			<template v-else>
-				<view slot='left' class="font-md ml-3 text-primary">取消</view>
+				<view slot='left' class="font-md ml-3 text-primary" @click="handleCheckAll(false)">取消</view>
 				<text class="font-md font-weight-bold">已选中{{checkCount}}</text>
-				<view slot='right' class="font-md mr-3 text-primary">全选</view>
+				<view slot='right' class="font-md mr-3 text-primary" @click="handleCheckAll(true)">全选</view>
 			</template>
 		</nav-bar>
 
@@ -102,6 +102,12 @@
 			select(e) {
 				//接收到子组件传递过来的索引选中状态，将对应的list中的数据更新
 				this.list[e.index].checked = e.value
+			},
+			// 全选/取消全选
+			handleCheckAll(checked) {
+				this.list.forEach(item => {
+					item.checked = checked;
+				});
 			}
 		}
 	}
