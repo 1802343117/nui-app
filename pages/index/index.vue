@@ -39,6 +39,27 @@
 			<!-- 列表 -->
 			<f-list v-for="(item, index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
 		</view>
+		
+		<!-- 底部操作条 -->
+		<!-- 选中个数大于才会出现这个操作条 -->
+		<view v-if="checkCount > 0">
+		<!-- 这里要留一定的高度，因为底部操作条需要被固定在底部，并空出底部tabbar高度的地方 -->
+			<view style="height: 115rpx;;"></view>
+			<!-- 操作条容器的样式，高度，颜色，固定在底部，垂直方向拉升效果 -->
+			<view style="height: 115rpx;" class="flex align-stretch bg-primary text-white fixed-bottom">
+				<!-- 根据元素个数等分容器，所以要么四等分，要么二等分，行高的修改可以让图标和文字之间的距离变得合理，点击还会变色：hover-class -->
+				<view 
+					class="flex-1 flex flex-column align-center justify-center"
+					style="line-height: 1.5;"
+					v-for="(item, index) in actions"
+					:key="index"
+					hover-class="bg-hover-primary"
+				>
+					<text class="iconfont" :class="item.icon"></text>
+					{{ item.name }}
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -96,6 +117,31 @@
 			// 选中数量
 			checkCount() {
 				return this.checkList.length;
+			},
+			// 操作菜单
+			actions() {
+				if(this.checkCount > 1) {
+					return [{
+						icon:"icon-xiazai",
+						name:"下载"
+					},{
+						icon:"icon-shanchu",
+						name:"删除"
+					}]
+				}
+				return [{
+					icon:"icon-xiazai",
+					name:"下载"
+				},{
+					icon:"icon-fenxiang-1",
+					name:"分享"
+				},{
+						icon:"icon-shanchu",
+						name:"删除"
+				},{
+						icon:"icon-chongmingming",
+						name:"重命名"
+				}]
 			}
 		},
 		methods: {
