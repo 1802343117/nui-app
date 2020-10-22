@@ -2,14 +2,24 @@
 	<view>
 		<!-- 	自定义导航栏 -->
 		<nav-bar>
-			<text slot="left" class="font-md ml-3">首页</text>
-			<template slot="right">
-				<view style="width: 60rpx; height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
-					<text class="iconfont icon-zengjia"></text>
-				</view>
-				<view style="width: 60rpx; height: 60rpx;" class="flex align-center justify-center bg-icon rounded-circle mr-3">
-					<text class="iconfont icon-gengduo"></text>
-				</view>
+			<template v-if="checkCount === 0">
+				<text slot="left" class="font-md ml-3">首页</text>
+				<template slot="right">
+					<view style="width: 60rpx; height: 60rpx;" 
+					class="flex align-center justify-center bg-icon rounded-circle mr-3">
+						<text class="iconfont icon-zengjia"></text>
+					</view>
+					<view style="width: 60rpx; height: 60rpx;" 
+					class="flex align-center justify-center bg-icon rounded-circle mr-3">
+						<text class="iconfont icon-gengduo"></text>
+					</view>
+				</template>
+			</template>
+			
+			<template v-else>
+				<view slot='left' class="font-md ml-3 text-primary">取消</view>
+				<text class="font-md font-weight-bold">已选中{{checkCount}}</text>
+				<view slot='right' class="font-md mr-3 text-primary">全选</view>
 			</template>
 		</nav-bar>
 
@@ -25,7 +35,9 @@
 
 		<!-- 资源列表 -->
 		<view class="flex flex-column">
-			<f-list v-for="item in list" :item="item"></f-list>
+			<!-- <f-list v-for="item in list" :item="item"></f-list> -->
+			<!-- 列表 -->
+			<f-list v-for="(item, index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
 		</view>
 	</view>
 </template>
@@ -76,8 +88,21 @@
 		onLoad() {
 
 		},
+		computed: {
+			// 选中列表
+			checkList() {
+				return this.list.filter(item => item.checked);
+			},
+			// 选中数量
+			checkCount() {
+				return this.checkList.length;
+			}
+		},
 		methods: {
-
+			select(e) {
+				//接收到子组件传递过来的索引选中状态，将对应的list中的数据更新
+				this.list[e.index].checked = e.value
+			}
 		}
 	}
 </script>
