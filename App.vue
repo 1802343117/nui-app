@@ -12,15 +12,14 @@
 	}
 </script>
 
+
 <style>
-	/*每个页面公共css */
-    /**自定义图标库 */
-	@import url("./common/icon.css");
-	@import url("./common/iconfont.css");
-	/**动画库 */
-	@import url("./common/animate.css");
-	/**自定义样式库 */
-	@import url("./common/free.css");
-	/**全局样式 */
-	@import url("./common/common.css");
+	/*引入官方样式库*/
+	@import url('./common/uni.css');
+	/*引入图标样式库*/
+	@import url('./common/icon.css');
+	/*引用通用free样式库*/
+	@import url('./common/free.css');
+	/*引入本项目公共样式库*/
+	@import url('./common/common.css');
 </style>

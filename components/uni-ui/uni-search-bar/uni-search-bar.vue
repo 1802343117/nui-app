@@ -116,6 +116,7 @@
 
 <style lang="scss" scoped>
 	$uni-searchbar-height: 36px;
+
 	.uni-searchbar {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -125,6 +126,7 @@
 		padding: $uni-spacing-col-base;
 		// background-color: $uni-bg-color;
 	}
+
 	.uni-searchbar__box {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -142,6 +144,7 @@
 		border-style: solid;
 		border-color: $uni-border-color;
 	}
+
 	.uni-searchbar__box-icon-search {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -152,21 +155,25 @@
 		align-items: center;
 		color: $uni-text-color-placeholder;
 	}
+
 	.uni-searchbar__box-search-input {
 		flex: 1;
 		font-size: $uni-font-size-base;
 		color: $uni-text-color;
 	}
+
 	.uni-searchbar__box-icon-clear {
 		align-items: center;
 		line-height: 24px;
 		padding-left: 5px;
 	}
+
 	.uni-searchbar__text-placeholder {
 		font-size: $uni-font-size-base;
 		color: $uni-text-color-placeholder;
 		margin-left: 5px;
 	}
+
 	.uni-searchbar__cancel {
 		padding-left: 10px;
 		line-height: $uni-searchbar-height;
