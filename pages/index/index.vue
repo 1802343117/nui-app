@@ -120,6 +120,7 @@ export default {
 				{
 					type: 'video',
 					name: 'uniapp实战教程.mp4',
+					data: 'https://johnnycc.oss-cn-beijing.aliyuncs.com/zl.mp4',
 					create_time: '2020-10-21 08:00',
 					checked: false
 				},
@@ -258,6 +259,11 @@ export default {
 					current: item.data,
 					urls: images.map(item => item.data)
 				})
+					break;
+				case 'video':
+				uni.navigateTo({
+					url: '../video/video?url=' + item.data + '&title=' + item.name,
+				});
 					break;
 				default:
 					break;
