@@ -28,6 +28,7 @@
 		components:{
 			uniPopup
 		},
+		// 父组件可以传递弹出层的标题，确定和取消区域的文字，不传就用默认值
 		props:{
 			title:{
 				type: String,
@@ -44,6 +45,7 @@
 		},
 		data(){
 			return{
+				// 是否需要回调函数，默认不需要
 				callback: false
 			}
 		},
@@ -53,15 +55,18 @@
 				this.$refs.dialog.open();
 			},
 			cancel(){
+				// 向父组件传递cancel事件，同时关闭对话框
 				this.$emit('cancel');
 				this.$refs.dialog.close();
 			},
 			confirm(){
+				// 如果需要回调,表示暂时不关闭,则将当前对象的cancel传递
 				if(typeof this.callback === 'function'){
 					this.callback(() => {
 						this.cancel();
 					})
 				} else {
+					// 向父组件传递confirm事件
 					this.$emit('confirm');
 					this.cancel();
 				}

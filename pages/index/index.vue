@@ -30,7 +30,14 @@
 			</view>
 		</view>
 
-		<f-list v-for="(item, index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+		<!-- 列表 -->
+		<f-list 
+			v-for="(item, index) in list" 
+			:key="index" 
+			:item="item" 
+			@click="doEvent(item)"
+			:index="index" 
+			@select="select"></f-list>
 
 		<!-- 底部操作条 -->
 		<!-- 选中个数大于0才会出现这个操作条 -->
@@ -106,6 +113,7 @@ export default {
 				{
 					type: 'image',
 					name: '风景.jpg',
+					data: 'https://pic-go-test.oss-cn-hangzhou.aliyuncs.com/img/53.jpeg',
 					create_time: '2020-10-21 08:00',
 					checked: false
 				},
@@ -234,6 +242,22 @@ export default {
 					});
 					close();
 					});
+					break;
+				default:
+					break;
+			}
+		},
+		// 列表点击事件处理
+		doEvent(item) {
+			switch (item.type){
+				case 'image': // 预览图片
+				let images = this.list.filter(item => {
+					return item.type === 'image'
+				})
+				uni.previewImage({
+					current: item.data,
+					urls: images.map(item => item.data)
+				})
 					break;
 				default:
 					break;
