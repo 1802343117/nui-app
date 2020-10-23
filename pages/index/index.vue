@@ -8,7 +8,11 @@
 					<view class="flex align-center justify-center bg-icon rounded-circle mr-3" style="width: 60rpx; height: 60rpx;" @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
 					</view>
-					<view class="flex align-center justify-center bg-icon rounded-circle mr-3" style="width: 60rpx;height: 60rpx;">
+					<view 
+						class="flex align-center justify-center bg-icon rounded-circle mr-3" 
+						style="width: 60rpx;height: 60rpx;"
+						@click="openSortDialog"
+					>
 						<text class="iconfont icon-gengduo"></text>
 					</view>
 				</template>
@@ -83,6 +87,22 @@
 				</view>
 			</view>
 		</uni-popup>
+		
+		<!-- 排序框，底部弹出，遍历排序操作数组，为当前索引绑定文字蓝色样式 -->
+		<uni-popup ref="sort" type="bottom">
+			<view class="bg-white">
+				<view
+					v-for="(item, index) in sortOptions"
+					:key="index"
+					class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
+					:class="index === sortIndex ? 'text-main' : 'text-dark'"
+					hover-class="bg-light"
+					@click="changeSort(index)"
+				>
+					{{ item.name }}
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -100,6 +120,15 @@ export default {
 	},
 	data() {
 		return {
+			sortIndex: 0,
+			sortOptions: [
+				{
+					name: '按名称排序'
+				},
+				{
+					name: '按时间排序'
+				}
+			],
 			renameValue: '',
 			newdirname: '',
 			title: 'Hello',
@@ -107,14 +136,14 @@ export default {
 				{
 					type: 'dir',
 					name: '我的笔记',
-					create_time: '2020-10-21 08:00',
+					create_time: '2020-10-22 08:00',
 					checked: false
 				},
 				{
 					type: 'image',
 					name: '风景.jpg',
 					data: 'https://pic-go-test.oss-cn-hangzhou.aliyuncs.com/img/53.jpeg',
-					create_time: '2020-10-21 08:00',
+					create_time: '2020-10-19 08:00',
 					checked: false
 				},
 				{
@@ -127,13 +156,13 @@ export default {
 				{
 					type: 'text',
 					name: '记事本.txt',
-					create_time: '2020-10-21 08:00',
+					create_time: '2020-10-26 08:00',
 					checked: false
 				},
 				{
 					type: 'none',
 					name: '压缩包.rar',
-					create_time: '2020-10-21 08:00',
+					create_time: '2020-10-24 08:00',
 					checked: false
 				}
 			],
@@ -171,6 +200,14 @@ export default {
 		});
 	},
 	methods: {
+		// 切换排序
+		changeSort(index) {
+			this.sortIndex = index;
+			this.$refs.sort.close();
+		},
+		openSortDialog() {
+			this.$refs.sort.open();
+		},
 		select(e) {
 			this.list[e.index].checked = e.value;
 		},
